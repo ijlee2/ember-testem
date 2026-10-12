@@ -1,23 +1,9 @@
 import { start as qunitStart } from 'ember-qunit';
 
-import { loadEmberExam } from './load.js';
+import EmberExamTestLoader from './-private/ember-exam-test-loader.js';
+import { patchTestemOutput } from './-private/patch-testem-output.js';
 
-/**
- * Equivalent to ember-qunit's loadTest() except this does not create a new TestLoader instance
- *
- * @function loadTests
- * @param {*} testLoader
- * @param {*} loaderOptions
- */
-async function loadTests(testLoader, loaderOptions = {}) {
-  if (testLoader === undefined) {
-    throw new Error(
-      'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.',
-    );
-  }
-
-  await testLoader.loadModules(loaderOptions);
-}
+let loaded = false;
 
 /**
  * Ember-exam's own start function to set up EmberExamTestLoader, load tests and calls start() from
@@ -27,14 +13,23 @@ async function loadTests(testLoader, loaderOptions = {}) {
  * @param {*} qunitOptions
  */
 export async function start(qunit, qunitOptions = {}) {
-  const { availableModules, ...modifiedOptions } =
-    qunitOptions || Object.create(null);
+  const { availableModules, ...modifiedOptions } = qunitOptions;
 
   modifiedOptions.loadTests = false;
 
-  const testLoader = loadEmberExam(qunit);
+  if (loaded) {
+    return;
+  }
 
-  await loadTests(testLoader, { availableModules });
+  loaded = true;
+
+  const testLoader = new EmberExamTestLoader(window.Testem);
+
+  if (window.Testem) {
+    patchTestemOutput(testLoader.urlParams, qunit);
+  }
+
+  await testLoader.loadModules({ availableModules });
 
   qunitStart(modifiedOptions);
 }

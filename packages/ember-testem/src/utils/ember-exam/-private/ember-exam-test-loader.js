@@ -20,12 +20,12 @@ export default class EmberExamTestLoader extends TestLoader {
     return this._urlParams;
   }
 
-  constructor(testem, urlParams, qunit = QUnit) {
+  constructor(testem, qunit = QUnit) {
     super();
     this._testModules = [];
     this._testem = testem;
     this._qunit = qunit;
-    this._urlParams = urlParams || getUrlParams();
+    this._urlParams = getUrlParams();
   }
 
   /**

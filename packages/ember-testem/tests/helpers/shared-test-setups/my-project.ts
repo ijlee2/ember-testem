@@ -2,6 +2,10 @@ import type { CodemodOptions, Options } from '../../../src/types/index.js';
 
 const codemodOptions: CodemodOptions = {
   buildPath: 'dist',
+  parallelization: {
+    partition: undefined,
+    split: undefined,
+  },
   port: 0,
   projectRoot: 'tmp/my-project',
   qunit: {
@@ -13,6 +17,10 @@ const codemodOptions: CodemodOptions = {
 
 const options: Options = {
   buildPath: 'dist',
+  parallelization: {
+    partition: undefined,
+    split: undefined,
+  },
   launchBrowser: false,
   port: 0,
   projectRoot: 'tmp/my-project',

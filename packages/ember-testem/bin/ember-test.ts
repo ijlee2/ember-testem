@@ -22,6 +22,10 @@ const argv = yargs(hideBin(process.argv))
     describe: 'Specify the name of a module to run',
     type: 'string',
   })
+  .option('partition', {
+    describe: 'Which partition to run (one-indexed)',
+    type: 'number',
+  })
   .option('path', {
     default: 'dist',
     describe: 'Relative path to the test build',
@@ -41,6 +45,10 @@ const argv = yargs(hideBin(process.argv))
     describe: 'Launch test browser',
     type: 'boolean',
   })
+  .option('split', {
+    describe: 'How many partitions to split tests into',
+    type: 'number',
+  })
   .option('test-port', {
     describe:
       'Port for running tests. Pass 0 to automatically pick an available port.',
@@ -51,6 +59,10 @@ const argv = yargs(hideBin(process.argv))
 
 const codemodOptions: CodemodOptions = {
   buildPath: argv['path'],
+  parallelization: {
+    partition: argv['partition'],
+    split: argv['split'],
+  },
   port: argv['test-port'] ?? argv['port'],
   projectRoot: argv['root'] ?? process.cwd(),
   qunit: {

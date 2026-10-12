@@ -1,12 +1,11 @@
-import { assert } from '@ember/debug';
-import { TestLoader } from 'ember-qunit/test-loader';
-import QUnit from 'qunit';
-
+/* globals requirejs, require */
 import AsyncIterator from './async-iterator.js';
 import { filterTestModules } from './filter-test-modules.js';
 import getUrlParams from './get-url-params.js';
 import splitTestModules from './split-test-modules.js';
 import weightTestModules from './weight-test-modules.js';
+
+let moduleLoadFailures = [];
 
 /**
  * EmberExamQUnitTestLoader allows delayed requiring of test modules to enable test load balancing
@@ -15,27 +14,54 @@ import weightTestModules from './weight-test-modules.js';
  * @class EmberExamQUnitTestLoader
  * @extends {TestLoader}
  */
-export default class EmberExamTestLoader extends TestLoader {
+export default class EmberExamTestLoader {
   get urlParams() {
     return this._urlParams;
   }
 
-  constructor(testem, qunit = QUnit) {
-    super();
+  constructor(dependencies) {
+    this._didLogMissingUnsee = false;
     this._testModules = [];
-    this._testem = testem;
-    this._qunit = qunit;
+    this._testem = dependencies.testem;
+    this._qunit = dependencies.qunit;
     this._urlParams = getUrlParams();
+
+    this._qunit.done(function () {
+      let length = moduleLoadFailures.length;
+
+      try {
+        if (length === 0) {
+          // do nothing
+        } else if (length === 1) {
+          throw moduleLoadFailures[0];
+        } else {
+          throw new Error('\n' + moduleLoadFailures.join('\n'));
+        }
+      } finally {
+        // ensure we release previously captured errors.
+        moduleLoadFailures = [];
+      }
+    });
   }
 
-  /**
-   * ember-cli-test-loader instantiates a new TestLoader instance and calls loadModules.
-   * EmberExamQUnitTestLoader does not support load() in favor of loadModules().
-   *
-   * @method load
-   */
-  static load() {
-    throw new Error("`EmberExamQUnitTestLoader` doesn't support `load()`.");
+  listModules() {
+    return Object.keys(requirejs.entries);
+  }
+
+  listTestModules() {
+    let moduleNames = this.listModules();
+    let testModules = [];
+    let moduleName;
+
+    for (let i = 0; i < moduleNames.length; i++) {
+      moduleName = moduleNames[i];
+
+      if (this.shouldLoadModule(moduleName)) {
+        testModules.push(moduleName);
+      }
+    }
+
+    return testModules;
   }
 
   /**
@@ -86,8 +112,8 @@ export default class EmberExamTestLoader extends TestLoader {
       return;
     }
 
-    super.require(moduleName);
-    super.unsee(moduleName);
+    this.requireSuper(moduleName);
+    this.unseeSuper(moduleName);
   }
 
   /**
@@ -112,12 +138,18 @@ export default class EmberExamTestLoader extends TestLoader {
     }
 
     if (!availableModules) {
-      super.loadModules();
+      let testModules = this.listTestModules();
+      let testModule;
+
+      for (let i = 0; i < testModules.length; i++) {
+        testModule = testModules[i];
+        this.require(testModule);
+        this.unsee(testModule);
+      }
     } else {
-      assert(
-        `Available modules must be an object.`,
-        typeof availableModules === 'object',
-      );
+      if (typeof availableModules !== 'object') {
+        throw new Error(`Available modules must be an object.`);
+      }
 
       this._availableModules = availableModules;
       this._testModules = Object.keys(availableModules);
@@ -162,21 +194,38 @@ export default class EmberExamTestLoader extends TestLoader {
        * Legacy support
        */
       this._testModules.forEach((moduleName) => {
-        super.require(moduleName);
-        super.unsee(moduleName);
+        this.requireSuper(moduleName);
+        this.unseeSuper(moduleName);
       });
     }
   }
 
+  moduleLoadFailure(moduleName, error) {
+    moduleLoadFailures.push(error);
+
+    this._qunit.module('TestLoader Failures');
+    this._qunit.test(moduleName + ': could not be loaded', function () {
+      throw error;
+    });
+  }
+
   /**
    * require() collects the full list of modules before requiring each module with
-   * super.require(), instead of requiring and unseeing a module when each gets loaded.
+   * requireSuper(), instead of requiring and unseeing a module when each gets loaded.
    *
    * @method require
    * @param {string} moduleName
    */
   require(moduleName) {
     this._testModules.push(moduleName);
+  }
+
+  requireSuper(moduleName) {
+    try {
+      require(moduleName);
+    } catch (e) {
+      this.moduleLoadFailure(moduleName, e);
+    }
   }
 
   /**
@@ -255,10 +304,27 @@ export default class EmberExamTestLoader extends TestLoader {
     });
   }
 
+  shouldLoadModule(moduleName) {
+    return moduleName.match(/[-_]test$/);
+  }
+
   /**
    * Make unsee a no-op to avoid any unwanted resets
    *
    * @method unsee
    */
   unsee() {}
+
+  unseeSuper(moduleName) {
+    if (typeof require.unsee === 'function') {
+      require.unsee(moduleName);
+    } else if (!this._didLogMissingUnsee) {
+      this._didLogMissingUnsee = true;
+      if (typeof console !== 'undefined') {
+        console.warn(
+          'unable to require.unsee, please upgrade loader.js to >= v3.3.0',
+        );
+      }
+    }
+  }
 }

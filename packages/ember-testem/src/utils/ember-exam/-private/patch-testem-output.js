@@ -1,5 +1,3 @@
-/* globals Testem */
-
 /**
  * Returns a modified test name including browser or partition information
  *
@@ -42,14 +40,18 @@ export function updateTestName(urlParams, testName) {
  * @function patchTestemOutput
  * @param {Map} urlParams
  */
-export function patchTestemOutput(urlParams) {
-  Testem.on('tests-start', (test) => {
+export function patchTestemOutput(dependencies, urlParams) {
+  if (!dependencies.testem) {
+    return;
+  }
+
+  dependencies.testem.on('tests-start', (test) => {
     if (test?.name) {
       test.name = updateTestName(urlParams, test.name);
     }
   });
 
-  Testem.on('test-result', (test) => {
+  dependencies.testem.on('test-result', (test) => {
     test.name = updateTestName(urlParams, test.name);
   });
 }

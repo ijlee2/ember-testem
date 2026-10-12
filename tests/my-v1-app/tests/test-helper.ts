@@ -1,7 +1,6 @@
 import { setApplication } from '@ember/test-helpers';
-// @ts-expect-error: Incorrect type
-import { start as startEmberExam } from 'ember-exam/test-support';
-import { setupEmberOnerrorValidation } from 'ember-qunit';
+import { setupEmberOnerrorValidation, start } from 'ember-qunit';
+import { loadTests } from 'ember-testem';
 import Application from 'my-v1-app/app';
 import config from 'my-v1-app/config/environment';
 import QUnit from 'qunit';
@@ -12,8 +11,11 @@ setApplication(Application.create(config.APP));
 
 setup(QUnit.assert);
 setupEmberOnerrorValidation();
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-startEmberExam();
+loadTests(QUnit);
+start({
+  // @ts-expect-error: Incorrect type
+  loadTests: false,
+});
 
 QUnit.testDone(function () {
   restore();

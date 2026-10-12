@@ -32,6 +32,7 @@
     "test:ember-testem": "ember-test --port 0",
     "test:ember-testem:filter-by-filter": "ember-test --filter \"integration\" --port 0",
     "test:ember-testem:filter-by-module": "ember-test --module \"Acceptance | form\" --port 0",
+    "test:ember-testem:parallel": "ember-test --port 0 --split 4",
     "test:watch": "concurrently \"pnpm build:test --watch\" \"pnpm test:ember-testem --server\" --names build,test"
   },
   "devDependencies": {

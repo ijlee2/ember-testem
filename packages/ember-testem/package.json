@@ -17,6 +17,12 @@
   "license": "MIT",
   "author": "Isaac J. Lee",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
   "main": "dist/src/run.js",
   "bin": {
     "ember-test": "dist/bin/ember-test.js"

@@ -4,6 +4,10 @@ import { getQueryParams } from '../../../../src/utils/run-tests/get-query-params
 
 test('utils | run-tests | get-query-params > module is defined', function () {
   const queryParams = getQueryParams({
+    parallelization: {
+      partition: undefined,
+      split: undefined,
+    },
     qunit: {
       filter: undefined,
       testModule: 'Acceptance | index',

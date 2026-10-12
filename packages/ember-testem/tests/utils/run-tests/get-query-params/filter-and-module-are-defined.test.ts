@@ -4,6 +4,10 @@ import { getQueryParams } from '../../../../src/utils/run-tests/get-query-params
 
 test('utils | run-tests | get-query-params > filter and module are defined', function () {
   const queryParams = getQueryParams({
+    parallelization: {
+      partition: undefined,
+      split: undefined,
+    },
     qunit: {
       filter: 'we can pass',
       testModule: 'Integration | Component | ui/form/input',

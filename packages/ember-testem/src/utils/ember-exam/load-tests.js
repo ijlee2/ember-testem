@@ -4,7 +4,7 @@ import { patchTestemOutput } from './-private/patch-testem-output.js';
 let loaded = false;
 
 export async function loadTests(qunit, options = {}) {
-  const { availableModules } = options;
+  const { modules } = options;
 
   if (loaded) {
     return;
@@ -21,5 +21,5 @@ export async function loadTests(qunit, options = {}) {
 
   patchTestemOutput(dependencies, testLoader.urlParams);
 
-  await testLoader.loadModules({ availableModules });
+  await testLoader.loadModules(modules);
 }

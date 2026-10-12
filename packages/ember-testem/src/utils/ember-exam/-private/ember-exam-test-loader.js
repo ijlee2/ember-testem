@@ -65,28 +65,6 @@ export default class EmberExamTestLoader {
   }
 
   /**
-   * availableModules are passed in from loadModules
-   * from loadEmberExam
-   * from start
-   */
-  async loadAvailableModules() {
-    if (this._availableModules) {
-      await Promise.all(
-        this._testModules.map(async (moduleName) => {
-          let loader = this._availableModules[moduleName];
-
-          /**
-           * If it's not a function, it's already loaded
-           */
-          if (typeof loader === 'function') {
-            await loader();
-          }
-        }),
-      );
-    }
-  }
-
-  /**
    * Allow loading one module at a time.
    *
    * @method loadIndividualModule
@@ -99,8 +77,8 @@ export default class EmberExamTestLoader {
       );
     }
 
-    if (this._availableModules) {
-      let loader = this._availableModules[moduleName];
+    if (this._modules) {
+      let loader = this._modules[moduleName];
 
       /**
        * If it's not a function, it's already loaded
@@ -121,7 +99,7 @@ export default class EmberExamTestLoader {
    *
    * @method loadModules
    */
-  async loadModules({ availableModules } = {}) {
+  async loadModules(modules) {
     const loadBalance = this._urlParams.get('loadBalance');
     const browserId = this._urlParams.get('browser');
     const modulePath = this._urlParams.get('modulePath');
@@ -137,7 +115,7 @@ export default class EmberExamTestLoader {
       partitions = [partitions];
     }
 
-    if (!availableModules) {
+    if (modules === undefined) {
       let testModules = this.listTestModules();
       let testModule;
 
@@ -147,12 +125,8 @@ export default class EmberExamTestLoader {
         this.unsee(testModule);
       }
     } else {
-      if (typeof availableModules !== 'object') {
-        throw new Error(`Available modules must be an object.`);
-      }
-
-      this._availableModules = availableModules;
-      this._testModules = Object.keys(availableModules);
+      this._modules = modules;
+      this._testModules = Object.keys(modules);
     }
 
     this.setupModuleMetadataHandler();
@@ -185,8 +159,20 @@ export default class EmberExamTestLoader {
         partitions,
       );
 
-      if (this._availableModules) {
-        await this.loadAvailableModules();
+      if (this._modules) {
+        await Promise.all(
+          this._testModules.map(async (moduleName) => {
+            let loader = this._modules[moduleName];
+
+            /**
+             * If it's not a function, it's already loaded
+             */
+            if (typeof loader === 'function') {
+              await loader();
+            }
+          }),
+        );
+
         return;
       }
 

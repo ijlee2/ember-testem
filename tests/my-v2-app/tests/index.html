@@ -36,9 +36,18 @@
     <script type="module">import 'ember-testing';</script>
     <script type="module">
       import { start } from './test-helper';
-      import.meta.glob('./**/*.{gjs,gts,js,ts}', { eager: true });
 
-      start();
+      // const modules = {
+      //   ...import.meta.glob('./acceptance/**/*-test.{gjs,gts,js,ts}'),
+      //   ...import.meta.glob('./integration/**/*-test.{gjs,gts,js,ts}'),
+      //   ...import.meta.glob('./unit/**/*-test.{gjs,gts,js,ts}'),
+      // };
+
+      const modules = import.meta.glob(
+        './{acceptance,integration,unit}/**/*-test.{gjs,gts,js,ts}',
+      );
+
+      start({ availableModules: modules });
     </script>
 
     {{content-for "body-footer"}}

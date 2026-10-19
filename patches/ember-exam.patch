@@ -1,0 +1,160 @@
+diff --git a/addon-test-support/-private/ember-exam-test-loader.js b/addon-test-support/-private/ember-exam-test-loader.js
+index a6e366359ad43a6ddf05bf1ebdc86a83916b75a3..4c5d558f86fcd1497d547645d14d07fe5995ad5c 100644
+--- a/addon-test-support/-private/ember-exam-test-loader.js
++++ b/addon-test-support/-private/ember-exam-test-loader.js
+@@ -21,6 +21,9 @@ export default class EmberExamTestLoader extends TestLoader {
+     this._testem = testem;
+     this._qunit = qunit;
+     this._urlParams = urlParams || getUrlParams();
++
++    console.log(Array.from(this._urlParams.keys()));
++    console.log(Array.from(this._urlParams.values()));
+   }
+ 
+   get urlParams() {
+@@ -45,6 +48,8 @@ export default class EmberExamTestLoader extends TestLoader {
+    * @param {string} moduleName
+    */
+   require(moduleName) {
++    console.log('-- require --');
++    console.log(moduleName);
+     this._testModules.push(moduleName);
+   }
+ 
+@@ -53,7 +58,9 @@ export default class EmberExamTestLoader extends TestLoader {
+    *
+    * @method unsee
+    */
+-  unsee() {}
++  unsee() {
++    console.log('-- unsee --')
++  }
+ 
+   /**
+    * Loads the test modules depending on the urlParam
+@@ -61,6 +68,7 @@ export default class EmberExamTestLoader extends TestLoader {
+    * @method loadModules
+    */
+   async loadModules({ availableModules } = {}) {
++    console.log('-- loadModules --');
+     const loadBalance = this._urlParams.get('loadBalance');
+     const browserId = this._urlParams.get('browser');
+     const modulePath = this._urlParams.get('modulePath');
+@@ -76,13 +84,18 @@ export default class EmberExamTestLoader extends TestLoader {
+       partitions = [partitions];
+     }
+ 
++    console.log(partitions);
++    console.log(split);
++
+     if (!availableModules) {
++      console.log('branch 1a');
+       super.loadModules();
+     } else {
+       assert(
+         `Available modules must be an object.`,
+         typeof availableModules === 'object',
+       );
++      console.log('branch 1b');
+ 
+       this._availableModules = availableModules;
+       this._testModules = Object.keys(availableModules);
+@@ -91,6 +104,7 @@ export default class EmberExamTestLoader extends TestLoader {
+     this.setupModuleMetadataHandler();
+ 
+     if (modulePath || filePath) {
++      console.log('branch 2a');
+       this._testModules = filterTestModules(
+         this._testModules,
+         modulePath,
+@@ -99,6 +113,7 @@ export default class EmberExamTestLoader extends TestLoader {
+     }
+ 
+     if (loadBalance && this._testem) {
++      console.log('branch 3a');
+       this.setupLoadBalanceHandlers();
+       this._testModules = splitTestModules(
+         weightTestModules(this._testModules),
+@@ -112,6 +127,7 @@ export default class EmberExamTestLoader extends TestLoader {
+         browserId,
+       );
+     } else {
++      console.log('branch 3b');
+       this._testModules = splitTestModules(
+         this._testModules,
+         split,
+@@ -119,6 +135,7 @@ export default class EmberExamTestLoader extends TestLoader {
+       );
+ 
+       if (this._availableModules) {
++      console.log('branch 3c');
+         await this.loadAvailableModules();
+         return;
+       }
+@@ -139,6 +156,7 @@ export default class EmberExamTestLoader extends TestLoader {
+    * from start
+    */
+   async loadAvailableModules() {
++    console.log('-- loadAvailableModules --');
+     if (this._availableModules) {
+       await Promise.all(
+         this._testModules.map(async (moduleName) => {
+@@ -162,6 +180,8 @@ export default class EmberExamTestLoader extends TestLoader {
+    * @param {string} moduleName
+    */
+   async loadIndividualModule(moduleName) {
++    console.log('-- loadIndividualModule --');
++    console.log(moduleName);
+     if (moduleName === undefined) {
+       throw new Error(
+         'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.',
+@@ -191,6 +211,7 @@ export default class EmberExamTestLoader extends TestLoader {
+    * @method setupModuleMetadataHandler
+    */
+   setupModuleMetadataHandler() {
++    console.log('-- setupModuleMetadataHandler -- ')
+     this._qunit.testDone((metadata) => {
+       if (typeof this._testem !== 'undefined' && this._testem !== null) {
+         // testem:test-done-metadata is sent to server to track test module details.
+@@ -207,6 +228,7 @@ export default class EmberExamTestLoader extends TestLoader {
+    * @method setupLoadBalanceHandlers
+    */
+   setupLoadBalanceHandlers() {
++    console.log('-- setupLoadBalanceHandlers --');
+     // nextModuleAsyncIterator handles the async testem events
+     // it returns an element of {value: <moduleName>, done: boolean}
+     const nextModuleAsyncIterator = new AsyncIterator(this._testem, {
+diff --git a/lib/commands/exam.js b/lib/commands/exam.js
+index d8320568711d605895c0550343dc4d600db0e0a7..9ba3b808d51a6ba33721588d08916f34bd571eb1 100644
+--- a/lib/commands/exam.js
++++ b/lib/commands/exam.js
+@@ -133,6 +133,7 @@ module.exports = TestCommand.extend({
+    * @override
+    */
+   run(commandOptions) {
++    console.log('-- run --');
+     this.commands = this._validateOptions(commandOptions);
+ 
+     // TODO: explore not mutating the commandOptions input
+@@ -205,6 +206,9 @@ module.exports = TestCommand.extend({
+       );
+     }
+ 
++    console.log(Object.keys(commandOptions));
++    console.log(Object.values(commandOptions));
++
+     return this._super.run.apply(this, arguments);
+   },
+ 
+diff --git a/lib/utils/test-page-helper.js b/lib/utils/test-page-helper.js
+index 1fb00dbbc2649b363fef34a7b6302208af453a67..be0b6abc68539a92a18991e4434a896e3e242c16 100644
+--- a/lib/utils/test-page-helper.js
++++ b/lib/utils/test-page-helper.js
+@@ -223,6 +223,7 @@ function getMultipleTestPages(config, commandOptions) {
+   } else {
+     testPages = _generateTestPages(customBaseUrl, appendingParam, browserIds);
+   }
++  console.log(testPages);
+ 
+   return testPages;
+ }

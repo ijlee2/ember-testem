@@ -187,6 +187,9 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  ember-exam: 679f89863087f4654137b2e7b986e6b2a5dd8455885ad81d1583806f80d28c5f
+
 importers:
 
   .:
@@ -642,7 +645,7 @@ importers:
         version: 7.1.5(@babel/core@7.29.7(supports-color@10.2.2))(@ember/test-helpers@5.7.0(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2))(@ember/test-waiters@4.1.2(supports-color@10.2.2))(@glimmer/component@2.1.1(supports-color@10.2.2))(@glint/template@1.9.0)(ember-resources@7.1.0(@glimmer/component@2.1.1(supports-color@10.2.2))(@glint/template@1.9.0)(supports-color@10.2.2))(supports-color@10.2.2)
       ember-exam:
         specifier: ^10.2.0
-        version: 10.2.0(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@6.12.0(@glimmer/component@2.1.1(supports-color@10.2.2))(rsvp@4.8.5)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3))
+        version: 10.2.0(patch_hash=679f89863087f4654137b2e7b986e6b2a5dd8455885ad81d1583806f80d28c5f)(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@6.12.0(@glimmer/component@2.1.1(supports-color@10.2.2))(rsvp@4.8.5)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3))
       ember-intl:
         specifier: ^9.1.0
         version: 9.1.0(@babel/core@7.29.7(supports-color@10.2.2))(@ember/test-helpers@5.7.0(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2))(supports-color@10.2.2)
@@ -979,7 +982,7 @@ importers:
         version: 7.1.5(@babel/core@8.0.6)(@ember/test-helpers@5.7.0(@babel/core@8.0.6)(supports-color@10.2.2))(@ember/test-waiters@4.1.2(supports-color@10.2.2))(@glimmer/component@2.1.1(supports-color@10.2.2))(@glint/template@1.9.0)(ember-resources@7.1.0(@glimmer/component@2.1.1(supports-color@10.2.2))(@glint/template@1.9.0)(supports-color@10.2.2))(supports-color@10.2.2)
       ember-exam:
         specifier: ^10.2.0
-        version: 10.2.0(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@8.0.6)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@7.3.0(@glimmer/component@2.1.1(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3))
+        version: 10.2.0(patch_hash=679f89863087f4654137b2e7b986e6b2a5dd8455885ad81d1583806f80d28c5f)(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@8.0.6)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@7.3.0(@glimmer/component@2.1.1(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3))
       ember-intl:
         specifier: ^9.1.0
         version: 9.1.0(@babel/core@8.0.6)(@ember/test-helpers@5.7.0(@babel/core@8.0.6)(supports-color@10.2.2))(supports-color@10.2.2)
@@ -15705,7 +15708,7 @@ snapshots:
       content-tag: 4.2.0
       oxc-parser: 0.130.0
 
-  ember-exam@10.2.0(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@6.12.0(@glimmer/component@2.1.1(supports-color@10.2.2))(rsvp@4.8.5)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3)):
+  ember-exam@10.2.0(patch_hash=679f89863087f4654137b2e7b986e6b2a5dd8455885ad81d1583806f80d28c5f)(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@6.12.0(@glimmer/component@2.1.1(supports-color@10.2.2))(rsvp@4.8.5)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3)):
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
       chalk: 5.6.2
@@ -15728,7 +15731,7 @@ snapshots:
       - supports-color
       - webpack
 
-  ember-exam@10.2.0(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@8.0.6)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@7.3.0(@glimmer/component@2.1.1(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3)):
+  ember-exam@10.2.0(patch_hash=679f89863087f4654137b2e7b986e6b2a5dd8455885ad81d1583806f80d28c5f)(@glint/template@1.9.0)(ember-qunit@9.2.0(@ember/test-helpers@5.7.0(@babel/core@8.0.6)(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2))(ember-source@7.3.0(@glimmer/component@2.1.1(supports-color@10.2.2))(supports-color@10.2.2))(qunit@3.0.0)(supports-color@10.2.2)(webpack@5.111.1(cssnano@5.1.15(postcss@8.5.28))(csso@4.2.0)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@2.8.4)(uglify-js@3.19.3)):
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
       chalk: 5.6.2

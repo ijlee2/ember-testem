@@ -19,6 +19,9 @@ packages:
   - "packages/install-ember-testem"
   - "tests/**"
 
+patchedDependencies:
+  ember-exam: patches/ember-exam.patch
+
 publicHoistPattern:
   - "*eslint*"
   - "*prettier*"

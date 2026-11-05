@@ -1,5 +1,11 @@
 # my-v2-app-strict
 
+## 0.1.3
+
+### Patch Changes
+
+- [#49](https://github.com/ijlee2/ember-testem/pull/49) Updated dependencies ([@ijlee2](https://github.com/ijlee2))
+
 ## 0.1.2
 
 ### Patch Changes

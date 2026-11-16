@@ -13,6 +13,6 @@ test('utils | run-tests | get-query-params > filter and module are defined', fun
 
   assert.strictEqual(
     queryParams,
-    'module=Integration | Component | ui/form/input&filter=we can pass',
+    'filter=we can pass&module=Integration | Component | ui/form/input',
   );
 });

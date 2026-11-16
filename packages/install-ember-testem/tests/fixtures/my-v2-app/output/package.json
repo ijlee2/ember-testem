@@ -14,7 +14,7 @@
     "ember-cli": "~7.3.0",
     "ember-qunit": "^9.2.0",
     "ember-source": "~7.3.0",
-    "ember-testem": "^0.7.0",
+    "ember-testem": "^1.0.0",
     "qunit": "^3.0.0",
     "typescript": "^6.0.3"
   },

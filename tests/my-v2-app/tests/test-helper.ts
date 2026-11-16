@@ -1,5 +1,10 @@
 import { setApplication } from '@ember/test-helpers';
-import { setupEmberOnerrorValidation, start as qunitStart } from 'ember-qunit';
+import {
+  type EmberExamStartOptions,
+  start as startEmberExam,
+  // @ts-expect-error: Incorrect type
+} from 'ember-exam/test-support';
+import { setupEmberOnerrorValidation } from 'ember-qunit';
 import Application from 'my-v2-app/app';
 import config from 'my-v2-app/config/environment';
 import QUnit from 'qunit';
@@ -15,12 +20,13 @@ export interface ExtendedQUnitConfig extends Config {
   mirageLogging: boolean;
 }
 
-export function start(): void {
+export async function start(options: EmberExamStartOptions): Promise<void> {
   setApplication(Application.create(config.APP));
 
   setup(QUnit.assert);
   setupEmberOnerrorValidation();
-  qunitStart();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  await startEmberExam(options);
 
   QUnit.testDone(function () {
     restore();

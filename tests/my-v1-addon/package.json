@@ -79,6 +79,7 @@
     "ember-a11y-testing": "^8.0.1",
     "ember-cli": "~6.12.0",
     "ember-cli-inject-live-reload": "^2.1.0",
+    "ember-exam": "^10.2.1",
     "ember-intl": "^9.4.0",
     "ember-load-initializers": "^3.0.1",
     "ember-qunit": "^9.2.0",

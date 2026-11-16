@@ -1,5 +1,16 @@
 # ember-testem
 
+## 1.0.0
+
+### Major Changes
+
+- [#53](https://github.com/ijlee2/ember-testem/pull/53) Marked stable release ([@ijlee2](https://github.com/ijlee2))
+
+### Patch Changes
+
+- [#51](https://github.com/ijlee2/ember-testem/pull/51) Sorted query parameters ([@ijlee2](https://github.com/ijlee2))
+- [#50](https://github.com/ijlee2/ember-testem/pull/50) Updated README ([@ijlee2](https://github.com/ijlee2))
+
 ## 0.7.0
 
 ### Minor Changes

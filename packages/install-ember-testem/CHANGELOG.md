@@ -1,5 +1,15 @@
 # install-ember-testem
 
+## 0.4.0
+
+### Minor Changes
+
+- [#53](https://github.com/ijlee2/ember-testem/pull/53) Updated latestVersions ([@ijlee2](https://github.com/ijlee2))
+
+### Patch Changes
+
+- [#52](https://github.com/ijlee2/ember-testem/pull/52) Updated dependencies ([@ijlee2](https://github.com/ijlee2))
+
 ## 0.3.4
 
 ### Patch Changes

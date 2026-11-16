@@ -1,5 +1,11 @@
 # e2e
 
+## 0.2.3
+
+### Patch Changes
+
+- [#52](https://github.com/ijlee2/ember-testem/pull/52) Updated dependencies ([@ijlee2](https://github.com/ijlee2))
+
 ## 0.2.2
 
 ### Patch Changes

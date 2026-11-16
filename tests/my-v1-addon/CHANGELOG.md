@@ -1,5 +1,11 @@
 # my-v1-addon
 
+## 0.3.4
+
+### Patch Changes
+
+- [#52](https://github.com/ijlee2/ember-testem/pull/52) Updated dependencies ([@ijlee2](https://github.com/ijlee2))
+
 ## 0.3.3
 
 ### Patch Changes

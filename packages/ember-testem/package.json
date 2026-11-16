@@ -1,6 +1,6 @@
 {
   "name": "ember-testem",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "description": "Backward- and forward-compatible testing for Ember projects",
   "keywords": [
     "ci",

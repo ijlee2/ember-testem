@@ -3,6 +3,7 @@ import { normalize } from 'node:path';
 import { assert, test } from '@codemod-utils/tests';
 
 import { runTests } from '../../../../src/steps/index.js';
+import { options } from '../../../helpers/shared-test-setups/my-project.js';
 import { restoreMethods, stubMethods } from '../../../helpers/stub.js';
 
 test('steps | run-tests | run-tests-in-ci > base case', async function () {
@@ -12,15 +13,8 @@ test('steps | run-tests | run-tests-in-ci > base case', async function () {
   stubs.testemStartDev.yields(0);
 
   await runTests({
-    buildPath: 'dist',
+    ...options,
     launchBrowser: false,
-    port: 0,
-    projectRoot: 'tmp/my-project',
-    qunit: {
-      filter: undefined,
-      module: undefined,
-      seed: undefined,
-    },
   });
 
   assert.strictEqual(stubs.chokidarWatch.notCalled, true);

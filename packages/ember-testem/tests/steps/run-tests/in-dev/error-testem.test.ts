@@ -4,6 +4,7 @@ import { assert, test } from '@codemod-utils/tests';
 import { stub } from 'sinon';
 
 import { runTests } from '../../../../src/steps/index.js';
+import { options } from '../../../helpers/shared-test-setups/my-project.js';
 import { restoreMethods, stubMethods } from '../../../helpers/stub.js';
 
 test('steps | run-tests | run-tests-in-dev > error (testem)', async function () {
@@ -14,15 +15,8 @@ test('steps | run-tests | run-tests-in-dev > error (testem)', async function () 
   stubs.testemStartDev.yields(1);
 
   await runTests({
-    buildPath: 'dist',
+    ...options,
     launchBrowser: true,
-    port: 0,
-    projectRoot: 'tmp/my-project',
-    qunit: {
-      filter: undefined,
-      module: undefined,
-      seed: undefined,
-    },
   });
 
   assert.strictEqual(stubs.chokidarWatch.calledOnce, true);

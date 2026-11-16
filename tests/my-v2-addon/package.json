@@ -71,9 +71,9 @@
     "embroider-css-modules": "^4.1.6"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.9",
+    "@babel/core": "^8.1.2",
     "@babel/plugin-transform-typescript": "^8.0.6",
-    "@babel/runtime": "^8.1.0",
+    "@babel/runtime": "^8.1.2",
     "@ember-intl/lint": "^2.4.0",
     "@ember-intl/vite": "^2.2.4",
     "@ember/test-helpers": "^5.8.0",
@@ -94,27 +94,27 @@
     "@shared-configs/typescript": "workspace:*",
     "@types/qunit": "^2.19.14",
     "babel-plugin-ember-template-compilation": "^4.0.1",
-    "concurrently": "^10.0.6",
+    "concurrently": "^10.0.7",
     "ember-a11y-testing": "^8.0.1",
     "ember-intl": "^9.4.0",
     "ember-qunit": "^9.2.0",
-    "ember-source": "~7.3.1",
+    "ember-source": "~7.4.0",
     "ember-strict-application-resolver": "^0.1.1",
     "ember-testem": "workspace:*",
-    "eslint": "^10.14.0",
-    "postcss": "^8.5.32",
-    "prettier": "^3.9.10",
+    "eslint": "^10.15.0",
+    "postcss": "^8.5.33",
+    "prettier": "^3.10.1",
     "qunit": "^3.0.0",
     "qunit-dom": "^3.6.0",
-    "rollup": "^4.67.5",
+    "rollup": "^4.68.3",
     "rollup-plugin-postcss": "^4.0.2",
     "stylelint": "^18.0.0",
     "type-css-modules": "^3.2.13",
     "typescript": "^6.0.3",
-    "vite": "^8.3.5"
+    "vite": "^8.3.8"
   },
   "peerDependencies": {
-    "ember-intl": "^9.1.0"
+    "ember-intl": "^9.4.0"
   },
   "peerDependenciesMeta": {
     "ember-intl": {

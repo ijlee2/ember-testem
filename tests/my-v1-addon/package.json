@@ -75,7 +75,7 @@
     "@shared-configs/typescript": "workspace:*",
     "@types/qunit": "^2.19.14",
     "broccoli-asset-rev": "^3.0.0",
-    "concurrently": "^10.0.6",
+    "concurrently": "^10.0.7",
     "ember-a11y-testing": "^8.0.1",
     "ember-cli": "~6.12.0",
     "ember-cli-inject-live-reload": "^2.1.0",
@@ -85,9 +85,9 @@
     "ember-resolver": "^13.2.0",
     "ember-source": "~6.12.1",
     "ember-testem": "workspace:*",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "loader.js": "^4.7.0",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.1",
     "qunit": "^3.0.0",
     "qunit-dom": "^3.6.0",
     "stylelint": "^18.0.0",
@@ -95,7 +95,7 @@
     "webpack": "^5.112.2"
   },
   "peerDependencies": {
-    "ember-intl": "^9.1.0"
+    "ember-intl": "^9.4.0"
   },
   "peerDependenciesMeta": {
     "ember-intl": {
